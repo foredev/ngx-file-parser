@@ -3,4 +3,4 @@ export class NgxFileButtonConfig {
   icon?: string;
   accepts: SUPPORTED_FILES[];
 }
-export type SUPPORTED_FILES = '.csv';
+type SUPPORTED_FILES = '.csv';

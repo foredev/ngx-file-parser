@@ -7,7 +7,6 @@ import { NgxFileButtonConfig } from 'projects/ngx-file-parser/src/public-api';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ngx-file-parser-demo';
   btnConfig: NgxFileButtonConfig = {
     text: 'Upload',
     accepts: ['.csv'],

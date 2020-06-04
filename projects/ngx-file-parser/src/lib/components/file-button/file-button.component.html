@@ -1,5 +1,10 @@
 <button mat-raised-button class="file-button" (click)="fileInput.click()">
   <mat-icon>{{ btnConfig.icon }}</mat-icon>
   <span class="file-button__text">{{ btnConfig.text }}</span>
-  <input #fileInput type="file" class="file-button__input" />
+  <input
+    #fileInput
+    type="file"
+    accept="{{ btnConfig.accepts.join(', ') }}"
+    class="file-button__input"
+  />
 </button>
