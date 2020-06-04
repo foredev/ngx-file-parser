@@ -1,2 +1,2 @@
-export * from './interfaces/iNgxCsv.interface';
+export * from './interfaces/csv.interface';
 export * from './interfaces/config.model';

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Injector } from '@angular/core';
+import { Component, Input, Injector } from '@angular/core';
 import { NgxFileButtonConfig } from '../../interfaces/config.model';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
 import { NgxParser } from '../../parsers/parser.interface';
 import { CsvParserService } from '../../parsers/csv-parser.service';
+import { INgxCsv } from '../../interfaces/csv.interface';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -34,7 +35,7 @@ export class FileButtonComponent {
       this.BTN_CONFIG = val;
     }
   }
-  private parser: NgxParser;
+  private parser: NgxParser<object>;
 
   constructor(
     private ngxFileParserService: NgxFileParserService,
