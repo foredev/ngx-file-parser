@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NgxFileParserComponent } from './ngx-file-parser.component';
-
-
+import { FileButtonComponent } from './components/file-button/file-button.component';
 
 @NgModule({
-  declarations: [NgxFileParserComponent],
-  imports: [
-  ],
-  exports: [NgxFileParserComponent]
+  declarations: [FileButtonComponent],
+  imports: [],
+  exports: [FileButtonComponent],
 })
-export class NgxFileParserModule { }
+export class NgxFileParserModule {}

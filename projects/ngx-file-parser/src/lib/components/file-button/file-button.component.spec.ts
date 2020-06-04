@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxFileParserComponent } from './ngx-file-parser.component';
+import { FileButtonComponent } from './file-button.component';
 
-describe('NgxFileParserComponent', () => {
-  let component: NgxFileParserComponent;
-  let fixture: ComponentFixture<NgxFileParserComponent>;
+describe('FileButtonComponent', () => {
+  let component: FileButtonComponent;
+  let fixture: ComponentFixture<FileButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgxFileParserComponent ]
+      declarations: [ FileButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgxFileParserComponent);
+    fixture = TestBed.createComponent(FileButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

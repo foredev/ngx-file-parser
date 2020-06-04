@@ -3,5 +3,4 @@
  */
 
 export * from './lib/ngx-file-parser.service';
-export * from './lib/ngx-file-parser.component';
 export * from './lib/ngx-file-parser.module';
