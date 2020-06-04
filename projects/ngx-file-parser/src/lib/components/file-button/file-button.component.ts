@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NgxFileButtonConfig } from '../../interfaces/config.interface';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -6,9 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./file-button.component.scss'],
 })
 export class FileButtonComponent implements OnInit {
-  @Input() btnText: string = '';
-  @Input() btnIcon: string = 'backup';
+  @Input() btnConfig: NgxFileButtonConfig;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.btnConfig) {
+      this.btnConfig = {
+        text: 'Upload',
+        icon: 'backup',
+      } as NgxFileButtonConfig;
+    }
+  }
 }
