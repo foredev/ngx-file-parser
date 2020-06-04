@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgxFileButtonConfig } from '../../interfaces/config.model';
+import { NgxFileParserService } from '../../ngx-file-parser.service';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -32,6 +33,16 @@ export class FileButtonComponent {
     }
   }
 
-  constructor() {}
-  onFileInput($event: Event) {}
+  constructor(private ngxFileParserService: NgxFileParserService) {}
+  onFileInput($event: any) {
+    if (!this.btnConfig.multiple && $event.srcElement.files) {
+      const files = $event.srcElement.files;
+      console.log(files[0]);
+      if (
+        this.ngxFileParserService.validFile(files[0], this.btnConfig.accepts)
+      ) {
+        console.log('yey');
+      }
+    }
+  }
 }
