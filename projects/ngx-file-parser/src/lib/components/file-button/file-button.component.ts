@@ -13,18 +13,22 @@ export class FileButtonComponent {
     accepts: ['.csv'],
     multiple: false,
   };
-  private _btnConfig: NgxFileButtonConfig = this.defaultBtnConfig;
+  private BTN_CONFIG: NgxFileButtonConfig = this.defaultBtnConfig;
 
   get btnConfig(): NgxFileButtonConfig {
-    return this._btnConfig;
+    return this.BTN_CONFIG;
   }
 
   @Input()
   set btnConfig(val: NgxFileButtonConfig) {
     if (val) {
-      if (!val.icon) val.icon = this.defaultBtnConfig.icon;
-      if (!val.text) val.icon = this.defaultBtnConfig.text;
-      this._btnConfig = val;
+      if (!val.icon) {
+        val.icon = this.defaultBtnConfig.icon;
+      }
+      if (!val.text) {
+        val.icon = this.defaultBtnConfig.text;
+      }
+      this.BTN_CONFIG = val;
     }
   }
 

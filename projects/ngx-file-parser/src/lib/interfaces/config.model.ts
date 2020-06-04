@@ -17,7 +17,7 @@ export class NgxFileButtonConfig {
   accepts: SUPPORTED_FILES[];
   /**
    * If user should be have to ability to choose multiple files
-   *Defaults to false
+   * Defaults to false
    */
   multiple?: boolean;
 }
