@@ -12,4 +12,7 @@ export class NgxFileParserService {
     const ext = file.name.substr(extIndex) as SUPPORTED_FILES;
     return accepts.includes(ext);
   }
+  public getExtension(fileName: string): string {
+    return fileName.substr(fileName.lastIndexOf('.'));
+  }
 }

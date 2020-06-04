@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Injector } from '@angular/core';
 import { NgxFileButtonConfig } from '../../interfaces/config.model';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
+import { NgxParser } from '../../parsers/parser.interface';
+import { CsvParserService } from '../../parsers/csv-parser.service';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -32,17 +34,30 @@ export class FileButtonComponent {
       this.BTN_CONFIG = val;
     }
   }
+  private parser: NgxParser;
 
-  constructor(private ngxFileParserService: NgxFileParserService) {}
+  constructor(
+    private ngxFileParserService: NgxFileParserService,
+    private injector: Injector
+  ) {}
+
   onFileInput($event: any) {
     if (!this.btnConfig.multiple && $event.srcElement.files) {
-      const files = $event.srcElement.files;
-      console.log(files[0]);
-      if (
-        this.ngxFileParserService.validFile(files[0], this.btnConfig.accepts)
-      ) {
-        console.log('yey');
+      const file: File = $event.srcElement.files[0];
+      if (this.ngxFileParserService.validFile(file, this.btnConfig.accepts)) {
+        const extension = this.ngxFileParserService.getExtension(file.name);
+        this.setParser(extension);
+        this.parser.parse(file);
       }
+    }
+  }
+  setParser(extension: string): void {
+    switch (extension) {
+      case '.csv':
+        this.parser = this.injector.get(CsvParserService);
+        return;
+      default:
+        return;
     }
   }
 }
