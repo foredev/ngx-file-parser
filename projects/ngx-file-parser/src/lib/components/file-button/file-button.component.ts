@@ -6,10 +6,11 @@ import { NgxFileButtonConfig } from '../../interfaces/config.model';
   templateUrl: './file-button.component.html',
   styleUrls: ['./file-button.component.scss'],
 })
-export class FileButtonComponent implements OnInit {
+export class FileButtonComponent {
   private readonly defaultBtnConfig: NgxFileButtonConfig = {
     icon: 'backup',
     text: 'Choose file',
+    accepts: ['.csv'],
   };
   private _btnConfig: NgxFileButtonConfig = this.defaultBtnConfig;
 
@@ -27,6 +28,4 @@ export class FileButtonComponent implements OnInit {
   }
 
   constructor() {}
-
-  ngOnInit(): void {}
 }
