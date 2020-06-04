@@ -33,4 +33,5 @@ export class FileButtonComponent {
   }
 
   constructor() {}
+  onFileInput($event: Event) {}
 }
