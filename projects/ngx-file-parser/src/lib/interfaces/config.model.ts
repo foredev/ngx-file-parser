@@ -21,4 +21,4 @@ export class NgxFileButtonConfig {
    */
   multiple?: boolean;
 }
-type SUPPORTED_FILES = '.csv';
+export type SUPPORTED_FILES = '.csv';

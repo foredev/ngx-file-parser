@@ -6,6 +6,7 @@
     type="file"
     accept="{{ btnConfig.accepts.join(', ') }}"
     multiple="{{ btnConfig.multiple }}"
+    (change)="onFileInput($event)"
     class="file-button__input"
   />
 </button>
