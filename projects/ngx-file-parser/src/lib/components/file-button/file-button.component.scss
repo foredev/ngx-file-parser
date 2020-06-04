@@ -1,0 +1,10 @@
+.file-button {
+  min-width: 1rem;
+  &__text {
+    margin-left: 1rem;
+    align-items: center;
+  }
+  &__file {
+    display: none;
+  }
+}

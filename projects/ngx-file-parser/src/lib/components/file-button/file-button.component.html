@@ -1,1 +1,5 @@
-<p>file-button works!</p>
+<button mat-raised-button class="file-button" (click)="fileInput.click()">
+  <mat-icon>{{ btnIcon }}</mat-icon>
+  <span class="file-button__text">{{ btnText }}</span>
+  <input #fileInput type="file" class="file-button__file" />
+</button>
