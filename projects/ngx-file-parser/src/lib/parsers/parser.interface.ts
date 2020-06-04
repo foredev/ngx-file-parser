@@ -1,3 +1,3 @@
 export interface NgxParser {
-  parse: Function;
+  parse: (file: File) => void;
 }
