@@ -13,8 +13,12 @@ describe('NgxFileParserService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   it('should get the correct file extension', () => {
     const file = 'test.csv';
     expect(service.getExtension(file)).toEqual('.csv');
+
+    const file2 = 'test.pdf';
+    expect(service.getExtension(file2)).toEqual('.pdf');
   });
 });
