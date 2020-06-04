@@ -10,6 +10,5 @@ export class AppComponent {
   title = 'ngx-file-parser-demo';
   btnConfig: NgxFileButtonConfig = {
     text: 'Upload',
-    icon: 'backup',
   };
 }
