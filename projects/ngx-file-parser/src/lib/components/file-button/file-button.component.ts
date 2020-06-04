@@ -11,6 +11,7 @@ export class FileButtonComponent {
     icon: 'backup',
     text: 'Choose file',
     accepts: ['.csv'],
+    multiple: false,
   };
   private _btnConfig: NgxFileButtonConfig = this.defaultBtnConfig;
 
