@@ -1,24 +1,135 @@
-# NgxFileParser
+# ngx-file-parser
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+Simple component to parse
 
-## Code scaffolding
+- CSV
+- JSON
 
-Run `ng generate component component-name --project ngx-file-parser` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-file-parser`.
-> Note: Don't forget to add `--project ngx-file-parser` or else it will be added to the default project in your `angular.json` file. 
+To be implemented: XML....
 
-## Build
+See demo - [https://fore.dev](https://fore.dev)
 
-Run `ng build ngx-file-parser` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Publishing
+#### 1.
 
-After building your library with `ng build ngx-file-parser`, go to the dist folder `cd dist/ngx-file-parser` and run `npm publish`.
+With NPM
+`npm install ngx-file-parser --save`
 
-## Running unit tests
+With Yarn
+`yarn add ngx-file-parser`
 
-Run `ng test ngx-file-parser` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### 2.
 
-## Further help
+Import the `NgxFileParserModule` to provide the necessary components and directives.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+import { NgxFileParserModule } from 'ngx-file-parser';
+
+@NgModule({
+  ...
+  imports: [ NgxFileParserModule ],
+  ...
+})
+export class AppModule { }
+```
+
+## Usage
+
+Declare NgxFileParserConfig object to provide to the directive
+
+#### `NgxFileParserConfig` has the following properties
+
+| Property           | Description                                                                     | Default     |
+| ------------------ | ------------------------------------------------------------------------------- | ----------- |
+| btnText            | Text to be displayed on button                                                  | Choose file |
+| btnIcon            | Material icon to be displayed on button                                         | backup      |
+| btnColor\*         | Color accent to the button                                                      | white       |
+| accepts            | Array of file name extensions                                                   | ['.csv']    |
+| csvNamedProperties | If parsed CSV file should be returned as array of objects with named properties | false       |
+
+\*See [Angular Material buttons for accents](https://material.angular.io/components/button/overview)
+
+# Example
+
+```ts
+import { NgxFileParserConfig } from "ngx-file-parser";
+
+ngxFileParserConfig: NgxFileParserConfig = {
+  btnText: "Upload",
+  btnIcon: "backup",
+  btnColor: "primary",
+  accepts: [".csv"],
+};
+```
+
+Use the ngx-file-btn directive and provide the needed config object and event listener function to handle the parsed object
+
+```html
+<ngx-file-btn
+  [(config)]="ngxFileParserConfig"
+  (parsedFile)="handleParsedFile($event)"
+></ngx-file-btn>
+```
+
+All parsed object is returned as INgxResult with the extension and result object and is emitted to this event listener with the \$event containing the parsed object
+
+```html
+(parsedFile)="handleParsedFile($event)"
+```
+
+```ts
+export interface INgxResult {
+  extension: string;
+  result: INgxCsv | INgxJson;
+}
+```
+
+# CSV
+
+Returns the interface `INgxCsv` with properties
+| Property | Description |
+| -------- | ----------------|
+| headers | Array of strings |
+| data | Array of arrays of string |
+
+Handle the callback:
+
+```ts
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileCsv = parsedFileObj.result as INgxCsv;
+  }
+```
+
+# CSV Named Properties
+
+Returns the interface `INgxComplexCsv` with properties
+| Property | Description |
+| -------- | ----------------|
+| [key: string]: string; | Property as definied in the upload CSV |
+
+Handle the callback:
+
+```ts
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileComplexCsv = parsedFileObj.result as INgxComplexCsv[];
+  }
+```
+
+# JSON
+
+Returns the interface `INgxJson` with the properties that are definied in the upload JSON file
+
+```ts
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileJson = parsedFileObj.result as INgxJson;
+  }
+```
+
+## Contribute
+
+TODO
+
+## License
+
+TODO

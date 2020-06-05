@@ -1,6 +1,30 @@
 {
   "name": "ngx-file-parser",
   "version": "1.0.1",
+  "description": "Simple Angular component to parse CSV, JSON files",
+  "author": "https://fore.dev | Rasmus Brants",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foredev/ngx-file-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foredev/ngx-file-parser/issues"
+  },
+  "homepage": "https://github.com/foredev/ngx-file-parser",
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript",
+    "component",
+    "angular-material",
+    "csv",
+    "json",
+    "parser",
+    "file",
+    "file-parser",
+    "simple"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^9.1.9",
     "@angular/core": "^9.1.9",
