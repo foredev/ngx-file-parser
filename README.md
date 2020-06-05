@@ -3,8 +3,9 @@
 Simple component to parse
 
 - CSV
+- JSON
 
-To be implemented: XML, JSON....
+To be implemented: XML....
 
 See demo - [https://fore.dev](https://fore.dev)
 
@@ -39,12 +40,13 @@ Declare NgxFileParserConfig object to provide to the directive
 
 #### `NgxFileParserConfig` has the following properties
 
-| Property   | Description                             | Default     |
-| ---------- | --------------------------------------- | ----------- |
-| btnText    | Text to be displayed on button          | Choose file |
-| btnIcon    | Material icon to be displayed on button | backup      |
-| btnColor\* | Color accent to the button              | white       |
-| accepts    | Array of file name extensions           | ['.csv']    |
+| Property           | Description                                                                     | Default     |
+| ------------------ | ------------------------------------------------------------------------------- | ----------- |
+| btnText            | Text to be displayed on button                                                  | Choose file |
+| btnIcon            | Material icon to be displayed on button                                         | backup      |
+| btnColor\*         | Color accent to the button                                                      | white       |
+| accepts            | Array of file name extensions                                                   | ['.csv']    |
+| csvNamedProperties | If parsed CSV file should be returned as array of objects with named properties | false       |
 
 \*See [Angular Material buttons for accents](https://material.angular.io/components/button/overview)
 
@@ -96,6 +98,21 @@ Handle the callback:
 ```ts
   handleParsedFile(parsedFileObj: INgxResult) {
     this.parsedFileCsv = parsedFileObj.result as INgxCsv;
+  }
+```
+
+# CSV Named Properties
+
+Returns the interface `INgxComplexCsv` with properties
+| Property | Description |
+| -------- | ----------------|
+| [key: string]: string; | Property as definied in the upload CSV |
+
+Handle the callback:
+
+```ts
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileComplexCsv = parsedFileObj.result as INgxComplexCsv[];
   }
 ```
 

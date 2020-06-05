@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { NgxParser } from '../parsers';
-import { INgxCsv } from '../interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { NgxParser } from './parser.interface';
+import { INgxComplexCsv } from '../interfaces/complex-csv.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CsvParserService implements NgxParser<INgxCsv> {
-  private parsed: BehaviorSubject<INgxCsv> = new BehaviorSubject<INgxCsv>(null);
-  readonly $parsed: Observable<INgxCsv> = this.parsed.asObservable();
-
+export class ComplexCsvParserService implements NgxParser<INgxComplexCsv[]> {
+  private parsed: BehaviorSubject<INgxComplexCsv[]> = new BehaviorSubject<
+    INgxComplexCsv[]
+  >(null);
+  readonly $parsed: Observable<INgxComplexCsv[]> = this.parsed.asObservable();
   constructor() {}
-
   parse(file: File): void {
     const reader = new FileReader();
 
@@ -21,10 +21,17 @@ export class CsvParserService implements NgxParser<INgxCsv> {
       const csvData = reader.result;
       const csvRecordsArray = (csvData as string).split(/\r\n|\n/);
       const headersRow = this.getHeaderArray(csvRecordsArray);
-      this.parsed.next({
-        headers: headersRow,
-        data: this.getDataArray(csvRecordsArray.splice(1)),
-      } as INgxCsv);
+      const dataArray = this.getDataArray(csvRecordsArray.splice(1));
+
+      const result: INgxComplexCsv[] = [];
+      for (let i = 1; i < dataArray.length; i++) {
+        const row: INgxComplexCsv = {};
+        for (let j = 0; j < headersRow.length; j++) {
+          row[headersRow[j]] = dataArray[i][j];
+        }
+        result.push(row);
+      }
+      this.parsed.next(result);
     };
   }
   private getHeaderArray(csvRecordsArr: any): string[] {
@@ -33,7 +40,6 @@ export class CsvParserService implements NgxParser<INgxCsv> {
       .map((val) => val.replace(/"/g, ''));
     return headers;
   }
-
   private getDataArray(csvRecordsArr: string[]): string[][] {
     const arr = [];
 

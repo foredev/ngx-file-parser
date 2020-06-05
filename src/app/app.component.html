@@ -13,4 +13,8 @@
     *ngIf="parsedFileJson"
     [(json)]="parsedFileJson"
   ></app-json-parsed>
+  <app-complex-csv-parsed
+    *ngIf="parsedFileComplexCsv"
+    [(csv)]="parsedFileComplexCsv"
+  ></app-complex-csv-parsed>
 </div>

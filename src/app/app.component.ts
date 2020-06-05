@@ -4,6 +4,7 @@ import {
   INgxCsv,
   INgxResult,
   INgxJson,
+  INgxComplexCsv,
 } from 'projects/ngx-file-parser/src/public-api';
 
 @Component({
@@ -16,12 +17,18 @@ export class AppComponent {
     btnText: 'Upload',
     accepts: ['.csv', '.json'],
     btnColor: 'primary',
+    csvNamedProperties: false,
   };
   parsedFileCsv: INgxCsv;
+  parsedFileComplexCsv: INgxComplexCsv[];
   parsedFileJson: INgxJson;
   handleParsedFile(parsedFileObj: INgxResult) {
     if (parsedFileObj.extension === '.csv') {
-      this.parsedFileCsv = parsedFileObj.result as INgxCsv;
+      if (this.ngxFileParserConfig.csvNamedProperties) {
+        this.parsedFileComplexCsv = parsedFileObj.result as INgxComplexCsv[];
+      } else {
+        this.parsedFileCsv = parsedFileObj.result as INgxCsv;
+      }
     } else if (parsedFileObj.extension === '.json') {
       this.parsedFileJson = parsedFileObj.result as INgxJson;
     }

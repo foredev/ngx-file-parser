@@ -15,6 +15,7 @@ import {
 } from '../../interfaces';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
 import { NgxParser, CsvParserService, JsonParserService } from '../../parsers';
+import { ComplexCsvParserService } from '../../parsers/complex-csv-parser.service';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -27,6 +28,7 @@ export class FileButtonComponent implements OnDestroy {
     btnText: 'Choose file',
     accepts: ['.csv'],
     btnColor: '',
+    csvNamedProperties: false,
   };
   private CONFIG: NgxFileParserConfig = this.defaultConfig;
 
@@ -43,6 +45,9 @@ export class FileButtonComponent implements OnDestroy {
         btnText: val.btnText ? val.btnText : this.defaultConfig.btnText,
         accepts: val.accepts ? val.accepts : this.defaultConfig.accepts,
         btnColor: val.btnColor ? val.btnColor : this.defaultConfig.btnColor,
+        csvNamedProperties: val.csvNamedProperties
+          ? val.csvNamedProperties
+          : this.defaultConfig.csvNamedProperties,
       };
       this.CONFIG = val;
     }
@@ -82,7 +87,9 @@ export class FileButtonComponent implements OnDestroy {
   setParser(extension: string): void {
     switch (extension) {
       case '.csv':
-        this.parser = this.injector.get(CsvParserService);
+        this.parser = this.config.csvNamedProperties
+          ? this.injector.get(ComplexCsvParserService)
+          : this.injector.get(CsvParserService);
         return;
       case '.json':
         this.parser = this.injector.get(JsonParserService);
