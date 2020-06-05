@@ -8,10 +8,12 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { NgxFileButtonConfig } from '../../interfaces/config.model';
+import {
+  NgxFileButtonConfig,
+  SUPPORTED_RETURN_OBJECTS,
+} from '../../interfaces';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
-import { NgxParser } from '../../parsers/parser.interface';
-import { CsvParserService } from '../../parsers/csv-parser.service';
+import { NgxParser, CsvParserService } from '../../parsers';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -23,7 +25,6 @@ export class FileButtonComponent implements OnDestroy {
     icon: 'backup',
     text: 'Choose file',
     accepts: ['.csv'],
-    multiple: false,
   };
   private BTN_CONFIG: NgxFileButtonConfig = this.defaultBtnConfig;
 
@@ -34,12 +35,11 @@ export class FileButtonComponent implements OnDestroy {
   @Input()
   set btnConfig(val: NgxFileButtonConfig) {
     if (val) {
-      if (!val.icon) {
-        val.icon = this.defaultBtnConfig.icon;
-      }
-      if (!val.text) {
-        val.icon = this.defaultBtnConfig.text;
-      }
+      val = {
+        ...this.btnConfig,
+        icon: val.icon ? val.icon : this.defaultBtnConfig.icon,
+        text: val.text ? val.text : this.defaultBtnConfig.text,
+      };
       this.BTN_CONFIG = val;
     }
   }
@@ -47,7 +47,7 @@ export class FileButtonComponent implements OnDestroy {
 
   private $parsed: Subscription;
 
-  @Output() parsedFile = new EventEmitter<object>();
+  @Output() parsedFile = new EventEmitter<SUPPORTED_RETURN_OBJECTS>();
 
   constructor(
     private ngxFileParserService: NgxFileParserService,
@@ -55,7 +55,7 @@ export class FileButtonComponent implements OnDestroy {
   ) {}
 
   onFileInput($event: any) {
-    if (!this.btnConfig.multiple && $event.srcElement.files) {
+    if ($event.srcElement.files) {
       const file: File = $event.srcElement.files[0];
 
       if (this.ngxFileParserService.validFile(file, this.btnConfig.accepts)) {
@@ -65,7 +65,7 @@ export class FileButtonComponent implements OnDestroy {
 
         this.$parsed = this.parser.$parsed
           .pipe(filter((val) => val !== null))
-          .subscribe((res) => {
+          .subscribe((res: SUPPORTED_RETURN_OBJECTS) => {
             this.parsedFile.emit(res);
             this.$parsed.unsubscribe();
           });

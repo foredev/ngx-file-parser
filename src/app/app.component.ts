@@ -15,7 +15,7 @@ export class AppComponent {
     accepts: ['.csv'],
   };
   parsedFileCsv: INgxCsv;
-  handleParsedFile(parsedFileObj: object) {
-    this.parsedFileCsv = parsedFileObj as INgxCsv;
+  handleParsedFile(parsedFileObj: INgxCsv) {
+    this.parsedFileCsv = parsedFileObj;
   }
 }

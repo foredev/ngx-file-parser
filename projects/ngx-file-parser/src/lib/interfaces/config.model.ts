@@ -1,3 +1,5 @@
+import { INgxCsv } from './csv.interface';
+
 export class NgxFileButtonConfig {
   /**
    * Text to be displayed on the main button
@@ -15,10 +17,6 @@ export class NgxFileButtonConfig {
    * Defaults to .csv
    */
   accepts: SUPPORTED_FILES[];
-  /**
-   * If user should be have to ability to choose multiple files
-   * Defaults to false
-   */
-  multiple?: boolean;
 }
 export type SUPPORTED_FILES = '.csv';
+export type SUPPORTED_RETURN_OBJECTS = object | INgxCsv;

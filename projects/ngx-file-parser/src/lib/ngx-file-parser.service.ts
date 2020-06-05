@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SUPPORTED_FILES } from './interfaces/config.model';
+import { SUPPORTED_FILES } from './interfaces';
 
 @Injectable({
   providedIn: 'root',

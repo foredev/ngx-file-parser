@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { NgxParser } from './parser.interface';
-import { INgxCsv } from '../interfaces/csv.interface';
+import { NgxParser } from '../parsers';
+import { INgxCsv } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
