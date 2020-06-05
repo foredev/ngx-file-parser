@@ -126,10 +126,6 @@ Returns the interface `INgxJson` with the properties that are definied in the up
   }
 ```
 
-## Contribute
-
-TODO
-
 ## License
 
-TODO
+MIT
