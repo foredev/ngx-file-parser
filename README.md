@@ -10,11 +10,15 @@ See demo - [https://fore.dev](https://fore.dev)
 
 ## Installation
 
+#### 1.
+
 With NPM
 `npm install ngx-file-parser --save`
 
 With Yarn
 `yarn add ngx-file-parser`
+
+#### 2.
 
 Import the `NgxFileParserModule` to provide the necessary components and directives.
 
@@ -31,46 +35,51 @@ export class AppModule { }
 
 ## Usage
 
-Declare ButtonConfig object to provide to the directive
+Declare NgxFileParserConfig object to provide to the directive
 
-NgxFileButtonConfig
-
-- text : Text to be displayed on button. Defaults to 'Choose file'
-- icon: Material icon to be displayed on button. Defaults to 'backup'
-- accepts: Array of file name extensions. Defaults to ['.csv']
-
-#### `NgxFileButtonConfig` has the following properties
+#### `NgxFileParserConfig` has the following properties
 
 | Property | Description                             | Default     |
 | -------- | --------------------------------------- | ----------- |
-| text     | Text to be displayed on button          | Choose file |
-| icon     | Material icon to be displayed on button | backup      |
+| btnText  | Text to be displayed on button          | Choose file |
+| btnIcon  | Material icon to be displayed on button | backup      |
 | accepts  | Array of file name extensions           | ['.csv']    |
 
 # Example
 
 ```ts
-btnConfig: NgxFileButtonConfig = {
-  text: "Upload",
-  icon: "backup",
+import { NgxFileParserConfig } from "ngx-file-parser";
+
+ngxFileParserConfig: NgxFileParserConfig = {
+  btnText: "Upload",
+  btnIcon: "backup",
   accepts: [".csv"],
 };
 ```
 
-Use the ngx-file-btn directive and provide the needed ButtonConfig object and event listener function to handle the parsed object
+Use the ngx-file-btn directive and provide the needed config object and event listener function to handle the parsed object
 
 ```html
 <ngx-file-btn
-  [(btnConfig)]="btnConfig"
+  [(config)]="ngxFileParserConfig"
   (parsedFile)="handleParsedFile($event)"
 ></ngx-file-btn>
 ```
 
-# CSV
+All parsed object is returned as INgxResult with the extension and result object and is emitted to this event listener with the \$event containing the parsed object
 
 ```html
-(parsedFile)="handleParsedFile(\$event)"
+(parsedFile)="handleParsedFile($event)"
 ```
+
+```ts
+export interface INgxResult {
+  extension: string;
+  result: INgxCsv | INgxJson;
+}
+```
+
+# CSV
 
 Returns the interface `INgxCsv` with properties
 | Property | Description |
@@ -81,8 +90,18 @@ Returns the interface `INgxCsv` with properties
 Handle the callback:
 
 ```ts
-  handleParsedFile(parsedFileObj: object) {
-    this.parsedFileCsv = parsedFileObj as INgxCsv;
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileCsv = parsedFileObj.result as INgxCsv;
+  }
+```
+
+# JSON
+
+Returns the interface `INgxJson` with the properties that are definied in the upload JSON file
+
+```ts
+  handleParsedFile(parsedFileObj: INgxResult) {
+    this.parsedFileJson = parsedFileObj.result as INgxJson;
   }
 ```
 

@@ -9,11 +9,12 @@ import {
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {
-  NgxFileButtonConfig,
+  NgxFileParserConfig,
   SUPPORTED_RETURN_OBJECTS,
+  INgxResult,
 } from '../../interfaces';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
-import { NgxParser, CsvParserService } from '../../parsers';
+import { NgxParser, CsvParserService, JsonParserService } from '../../parsers';
 
 @Component({
   selector: 'ngx-file-btn',
@@ -21,33 +22,34 @@ import { NgxParser, CsvParserService } from '../../parsers';
   styleUrls: ['./file-button.component.scss'],
 })
 export class FileButtonComponent implements OnDestroy {
-  private readonly defaultBtnConfig: NgxFileButtonConfig = {
-    icon: 'backup',
-    text: 'Choose file',
+  private readonly defaultConfig: NgxFileParserConfig = {
+    btnIcon: 'backup',
+    btnText: 'Choose file',
     accepts: ['.csv'],
   };
-  private BTN_CONFIG: NgxFileButtonConfig = this.defaultBtnConfig;
+  private CONFIG: NgxFileParserConfig = this.defaultConfig;
 
-  get btnConfig(): NgxFileButtonConfig {
-    return this.BTN_CONFIG;
+  get config(): NgxFileParserConfig {
+    return this.CONFIG;
   }
 
   @Input()
-  set btnConfig(val: NgxFileButtonConfig) {
+  set config(val: NgxFileParserConfig) {
     if (val) {
       val = {
-        ...this.btnConfig,
-        icon: val.icon ? val.icon : this.defaultBtnConfig.icon,
-        text: val.text ? val.text : this.defaultBtnConfig.text,
+        ...this.CONFIG,
+        btnIcon: val.btnIcon ? val.btnIcon : this.defaultConfig.btnIcon,
+        btnText: val.btnText ? val.btnText : this.defaultConfig.btnText,
+        accepts: val.accepts ? val.accepts : this.defaultConfig.accepts,
       };
-      this.BTN_CONFIG = val;
+      this.CONFIG = val;
     }
   }
   private parser: NgxParser<object>;
 
   private $parsed: Subscription;
 
-  @Output() parsedFile = new EventEmitter<SUPPORTED_RETURN_OBJECTS>();
+  @Output() parsedFile = new EventEmitter<INgxResult>();
 
   constructor(
     private ngxFileParserService: NgxFileParserService,
@@ -58,7 +60,9 @@ export class FileButtonComponent implements OnDestroy {
     if ($event.srcElement.files) {
       const file: File = $event.srcElement.files[0];
 
-      if (this.ngxFileParserService.validFile(file, this.btnConfig.accepts)) {
+      if (
+        this.ngxFileParserService.validFile(file, this.defaultConfig.accepts)
+      ) {
         const extension = this.ngxFileParserService.getExtension(file.name);
 
         this.setParser(extension);
@@ -66,7 +70,7 @@ export class FileButtonComponent implements OnDestroy {
         this.$parsed = this.parser.$parsed
           .pipe(filter((val) => val !== null))
           .subscribe((res: SUPPORTED_RETURN_OBJECTS) => {
-            this.parsedFile.emit(res);
+            this.parsedFile.emit({ extension, result: res } as INgxResult);
             this.$parsed.unsubscribe();
           });
         this.parser.parse(file);
@@ -77,6 +81,9 @@ export class FileButtonComponent implements OnDestroy {
     switch (extension) {
       case '.csv':
         this.parser = this.injector.get(CsvParserService);
+        return;
+      case '.json':
+        this.parser = this.injector.get(JsonParserService);
         return;
       default:
         return;
