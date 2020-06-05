@@ -1,5 +1,7 @@
 # ngx-file-parser
 
+[![npm version](http://img.shields.io/npm/v/ngx-file-parser.svg?style=flat)](https://npmjs.org/package/ngx-file-parser)
+
 Simple component to parse
 
 - CSV
@@ -8,6 +10,11 @@ Simple component to parse
 To be implemented: XML....
 
 See demo - [https://fore.dev](https://fore.dev)
+
+## Dependencies
+
+- Angular
+- Angular Material
 
 ## Installation
 

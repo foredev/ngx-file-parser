@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "fe": "ng serve -o"
+    "fe": "ng serve -o",
+    "build-for-publish": "ng build --project=ngx-file-parser --prod",
+    "publish": "cp README.md dist/ngx-file-parser/README.md && cd dist/ngx-file-parser && npm publish"
   },
   "private": true,
   "dependencies": {
