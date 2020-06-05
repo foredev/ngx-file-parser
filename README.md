@@ -39,6 +39,14 @@ NgxFileButtonConfig
 - icon: Material icon to be displayed on button. Defaults to 'backup'
 - accepts: Array of file name extensions. Defaults to ['.csv']
 
+#### `NgxFileButtonConfig` has the following properties
+
+| Property | Description                             | Default     |
+| -------- | --------------------------------------- | ----------- |
+| text     | Text to be displayed on button          | Choose file |
+| icon     | Material icon to be displayed on button | backup      |
+| accepts  | Array of file name extensions           | ['.csv']    |
+
 # Example
 
 ```ts
@@ -57,3 +65,31 @@ Use the ngx-file-btn directive and provide the needed ButtonConfig object and ev
   (parsedFile)="handleParsedFile($event)"
 ></ngx-file-btn>
 ```
+
+# CSV
+
+```html
+(parsedFile)="handleParsedFile(\$event)"
+```
+
+Returns the interface `INgxCsv` with properties
+| Property | Description |
+| -------- | ----------------|
+| headers | Array of strings |
+| data | Array of arrays of string |
+
+Handle the callback:
+
+```ts
+  handleParsedFile(parsedFileObj: object) {
+    this.parsedFileCsv = parsedFileObj as INgxCsv;
+  }
+```
+
+## Contribute
+
+TODO
+
+## License
+
+TODO
