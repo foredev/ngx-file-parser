@@ -8,9 +8,8 @@ describe('JsonParsedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JsonParsedComponent ]
-    })
-    .compileComponents();
+      declarations: [JsonParsedComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

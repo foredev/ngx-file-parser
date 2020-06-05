@@ -15,6 +15,7 @@ export class AppComponent {
   ngxFileParserConfig: NgxFileParserConfig = {
     btnText: 'Upload',
     accepts: ['.csv', '.json'],
+    btnColor: 'primary',
   };
   parsedFileCsv: INgxCsv;
   parsedFileJson: INgxJson;

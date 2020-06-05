@@ -39,11 +39,14 @@ Declare NgxFileParserConfig object to provide to the directive
 
 #### `NgxFileParserConfig` has the following properties
 
-| Property | Description                             | Default     |
-| -------- | --------------------------------------- | ----------- |
-| btnText  | Text to be displayed on button          | Choose file |
-| btnIcon  | Material icon to be displayed on button | backup      |
-| accepts  | Array of file name extensions           | ['.csv']    |
+| Property   | Description                             | Default     |
+| ---------- | --------------------------------------- | ----------- |
+| btnText    | Text to be displayed on button          | Choose file |
+| btnIcon    | Material icon to be displayed on button | backup      |
+| btnColor\* | Color accent to the button              | white       |
+| accepts    | Array of file name extensions           | ['.csv']    |
+
+\*See [Angular Material buttons for accents](https://material.angular.io/components/button/overview)
 
 # Example
 
@@ -53,6 +56,7 @@ import { NgxFileParserConfig } from "ngx-file-parser";
 ngxFileParserConfig: NgxFileParserConfig = {
   btnText: "Upload",
   btnIcon: "backup",
+  btnColor: "primary",
   accepts: [".csv"],
 };
 ```

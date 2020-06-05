@@ -1,4 +1,9 @@
-<button mat-raised-button class="file-button" (click)="fileInput.click()">
+<button
+  mat-raised-button
+  class="file-button"
+  [color]="config.btnColor"
+  (click)="fileInput.click()"
+>
   <mat-icon>{{ config.btnIcon }}</mat-icon>
   <span class="file-button__text">{{ config.btnText }}</span>
   <input

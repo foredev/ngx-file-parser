@@ -26,6 +26,7 @@ export class FileButtonComponent implements OnDestroy {
     btnIcon: 'backup',
     btnText: 'Choose file',
     accepts: ['.csv'],
+    btnColor: '',
   };
   private CONFIG: NgxFileParserConfig = this.defaultConfig;
 
@@ -41,6 +42,7 @@ export class FileButtonComponent implements OnDestroy {
         btnIcon: val.btnIcon ? val.btnIcon : this.defaultConfig.btnIcon,
         btnText: val.btnText ? val.btnText : this.defaultConfig.btnText,
         accepts: val.accepts ? val.accepts : this.defaultConfig.accepts,
+        btnColor: val.btnColor ? val.btnColor : this.defaultConfig.btnColor,
       };
       this.CONFIG = val;
     }
