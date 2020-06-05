@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NgxFileButtonConfig } from 'projects/ngx-file-parser/src/public-api';
+import {
+  NgxFileButtonConfig,
+  INgxCsv,
+} from 'projects/ngx-file-parser/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +14,8 @@ export class AppComponent {
     text: 'Upload',
     accepts: ['.csv'],
   };
+  parsedFileCsv: INgxCsv;
+  handleParsedFile(parsedFileObj: object) {
+    this.parsedFileCsv = parsedFileObj as INgxCsv;
+  }
 }

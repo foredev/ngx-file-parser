@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileButtonComponent } from './file-button.component';
+import { CsvParsedComponent } from './csv-parsed.component';
 
-describe('FileButtonComponent', () => {
-  let component: FileButtonComponent;
-  let fixture: ComponentFixture<FileButtonComponent>;
+describe('CsvParsedComponent', () => {
+  let component: CsvParsedComponent;
+  let fixture: ComponentFixture<CsvParsedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FileButtonComponent],
+      declarations: [CsvParsedComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileButtonComponent);
+    fixture = TestBed.createComponent(CsvParsedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

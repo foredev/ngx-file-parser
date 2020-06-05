@@ -1,1 +1,12 @@
-<div class="app"><ngx-file-btn [(btnConfig)]="btnConfig"></ngx-file-btn></div>
+<div class="app">
+  <ngx-file-btn
+    [(btnConfig)]="btnConfig"
+    (parsedFile)="handleParsedFile($event)"
+  ></ngx-file-btn>
+</div>
+<div>
+  <app-csv-parsed
+    *ngIf="parsedFileCsv"
+    [(csv)]="parsedFileCsv"
+  ></app-csv-parsed>
+</div>

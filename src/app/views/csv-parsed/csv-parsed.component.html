@@ -1,0 +1,14 @@
+<div>
+  <table class="csv">
+    <thead>
+      <tr class="csv__table-header">
+        <th *ngFor="let header of csv.headers">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of csv.data" class="csv__table-data">
+        <td *ngFor="let column of row">{{ column }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

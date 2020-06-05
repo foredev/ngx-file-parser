@@ -1,0 +1,20 @@
+.csv {
+  tr:nth-child(even) {
+    background-color: #f7f7f7;
+  }
+  &__table-header {
+    text-align: left;
+    th {
+      font-weight: 400;
+      color: #a9a9a9;
+      font-size: 0.875rem;
+    }
+  }
+  &__table-data {
+    text-align: left;
+    td {
+      font-weight: 400;
+      color: #4c4c4c;
+    }
+  }
+}

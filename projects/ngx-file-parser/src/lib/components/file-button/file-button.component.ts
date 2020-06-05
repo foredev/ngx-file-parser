@@ -1,16 +1,24 @@
-import { Component, Input, Injector } from '@angular/core';
+import {
+  Component,
+  Input,
+  Injector,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { NgxFileButtonConfig } from '../../interfaces/config.model';
 import { NgxFileParserService } from '../../ngx-file-parser.service';
 import { NgxParser } from '../../parsers/parser.interface';
 import { CsvParserService } from '../../parsers/csv-parser.service';
-import { INgxCsv } from '../../interfaces/csv.interface';
 
 @Component({
   selector: 'ngx-file-btn',
   templateUrl: './file-button.component.html',
   styleUrls: ['./file-button.component.scss'],
 })
-export class FileButtonComponent {
+export class FileButtonComponent implements OnDestroy {
   private readonly defaultBtnConfig: NgxFileButtonConfig = {
     icon: 'backup',
     text: 'Choose file',
@@ -37,6 +45,10 @@ export class FileButtonComponent {
   }
   private parser: NgxParser<object>;
 
+  private $parsed: Subscription;
+
+  @Output() parsedFile = new EventEmitter<object>();
+
   constructor(
     private ngxFileParserService: NgxFileParserService,
     private injector: Injector
@@ -45,9 +57,18 @@ export class FileButtonComponent {
   onFileInput($event: any) {
     if (!this.btnConfig.multiple && $event.srcElement.files) {
       const file: File = $event.srcElement.files[0];
+
       if (this.ngxFileParserService.validFile(file, this.btnConfig.accepts)) {
         const extension = this.ngxFileParserService.getExtension(file.name);
+
         this.setParser(extension);
+
+        this.$parsed = this.parser.$parsed
+          .pipe(filter((val) => val !== null))
+          .subscribe((res) => {
+            this.parsedFile.emit(res);
+            this.$parsed.unsubscribe();
+          });
         this.parser.parse(file);
       }
     }
@@ -59,6 +80,11 @@ export class FileButtonComponent {
         return;
       default:
         return;
+    }
+  }
+  ngOnDestroy() {
+    if (this.$parsed) {
+      this.$parsed.unsubscribe();
     }
   }
 }
