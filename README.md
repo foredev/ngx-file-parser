@@ -80,8 +80,6 @@ Use the ngx-file-btn directive and provide the needed config object and event li
 ></ngx-file-btn>
 ```
 
-All parsed object is returned as INgxResult with the extension and result object and is emitted to this event listener with the \$event containing the parsed object
-
 #### `ngx-file-btn` has the following output events
 
 | Event      | Description                    | Type       |
@@ -98,7 +96,7 @@ export interface INgxResult {
 
 # Returns
 
-Handle all 'parsedFile' responses by
+All parsed object is returned as INgxResult with the extension of the file and a result object and is emitted to this event listener with the \$event containing the parsed object
 
 ```ts
   handleParsedFile(parsedFileObj: INgxResult) {

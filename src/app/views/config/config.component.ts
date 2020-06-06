@@ -51,7 +51,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
           ...this.config,
           accepts: val.accepts,
           csvNamedProperties: val.csvNamedProperties,
-          btnColor: btnColor,
+          btnColor,
           btnText: val.btnText,
         } as NgxFileParserConfig);
       });
