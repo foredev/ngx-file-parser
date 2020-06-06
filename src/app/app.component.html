@@ -1,30 +1,32 @@
-<mat-toolbar>
-  <img width="52" height="52" src="../assets/images/foredev-logo.png" />
-  ngx-file-parser-demo
-</mat-toolbar>
 <div class="app">
-  <app-config
-    [(config)]="ngxFileParserConfig"
-    (outConfig)="resetConfig($event)"
-  ></app-config>
-  <div class="app__file-button">
-    <ngx-file-btn
+  <mat-toolbar>
+    <img width="52" height="52" src="../assets/images/foredev-logo.png" />
+    ngx-file-parser-demo
+  </mat-toolbar>
+  <div class="app__content">
+    <app-config
       [(config)]="ngxFileParserConfig"
-      (parsedFile)="handleParsedFile($event)"
-    ></ngx-file-btn>
+      (outConfig)="resetConfig($event)"
+    ></app-config>
+    <div class="app__file-button">
+      <ngx-file-btn
+        [(config)]="ngxFileParserConfig"
+        (parsedFile)="handleParsedFile($event)"
+      ></ngx-file-btn>
+    </div>
   </div>
-</div>
-<div class="app__results">
-  <app-csv-parsed
-    *ngIf="parsedFileCsv"
-    [(csv)]="parsedFileCsv"
-  ></app-csv-parsed>
-  <app-json-parsed
-    *ngIf="parsedFileJson"
-    [(json)]="parsedFileJson"
-  ></app-json-parsed>
-  <app-complex-csv-parsed
-    *ngIf="parsedFileComplexCsv"
-    [(csv)]="parsedFileComplexCsv"
-  ></app-complex-csv-parsed>
+  <div class="app__results">
+    <app-csv-parsed
+      *ngIf="parsedFileCsv"
+      [(csv)]="parsedFileCsv"
+    ></app-csv-parsed>
+    <app-json-parsed
+      *ngIf="parsedFileJson"
+      [(json)]="parsedFileJson"
+    ></app-json-parsed>
+    <app-complex-csv-parsed
+      *ngIf="parsedFileComplexCsv"
+      [(csv)]="parsedFileComplexCsv"
+    ></app-complex-csv-parsed>
+  </div>
 </div>

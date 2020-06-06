@@ -23,6 +23,7 @@ export class AppComponent {
   parsedFileComplexCsv: INgxComplexCsv[];
   parsedFileJson: INgxJson;
   handleParsedFile(parsedFileObj: INgxResult) {
+    this.resetResults();
     if (parsedFileObj.extension === '.csv') {
       if (this.ngxFileParserConfig.csvNamedProperties) {
         this.parsedFileComplexCsv = parsedFileObj.result as INgxComplexCsv[];
@@ -34,9 +35,12 @@ export class AppComponent {
     }
   }
   resetConfig(config: NgxFileParserConfig) {
+    this.resetResults();
+    this.ngxFileParserConfig = config;
+  }
+  resetResults() {
     this.parsedFileComplexCsv = null;
     this.parsedFileCsv = null;
     this.parsedFileJson = null;
-    this.ngxFileParserConfig = config;
   }
 }
