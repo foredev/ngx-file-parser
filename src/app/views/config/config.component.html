@@ -5,6 +5,18 @@
   </mat-card-header>
   <mat-card-content class="config__content">
     <mat-form-field>
+      <mat-label>Button text</mat-label>
+      <input matInput placeholder="Ex. Choose file" formControlName="btnText" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Button colors</mat-label>
+      <mat-select formControlName="buttonColor">
+        <mat-option *ngFor="let color of buttonColors" [value]="color">
+          {{ color }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>File extensions</mat-label>
       <mat-select formControlName="accepts" multiple>
         <mat-option *ngFor="let ext of supportedFiles" [value]="ext">
@@ -13,7 +25,7 @@
       </mat-select>
     </mat-form-field>
     <mat-checkbox formControlName="csvNamedProperties">
-      Named properties
+      Csv named properties
     </mat-checkbox>
   </mat-card-content>
 </mat-card>

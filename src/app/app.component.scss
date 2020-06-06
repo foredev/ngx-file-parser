@@ -1,5 +1,6 @@
 .app {
-  width: 30rem;
+  min-width: 25rem;
+  max-width: 50rem;
   height: 5rem;
   display: flex;
   justify-content: center;

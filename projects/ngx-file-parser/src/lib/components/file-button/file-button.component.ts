@@ -62,18 +62,15 @@ export class FileButtonComponent implements OnDestroy {
   @Output() processing = new EventEmitter<boolean>();
 
   constructor(
-    private ngxFileParserService: NgxFileParserService,
+    private helperService: NgxFileParserService,
     private injector: Injector
   ) {}
 
   onFileInput($event: any) {
     if ($event.srcElement.files) {
       const file: File = $event.srcElement.files[0];
-
-      if (
-        this.ngxFileParserService.validFile(file, this.defaultConfig.accepts)
-      ) {
-        const extension = this.ngxFileParserService.getExtension(file.name);
+      if (this.helperService.validFile(file, this.config.accepts)) {
+        const extension = this.helperService.getExtension(file.name);
 
         this.setParser(extension);
 
@@ -94,7 +91,7 @@ export class FileButtonComponent implements OnDestroy {
       }
     }
   }
-  setParser(extension: string): void {
+  private setParser(extension: string): void {
     switch (extension) {
       case '.csv':
         this.parser = this.config.csvNamedProperties
@@ -108,7 +105,7 @@ export class FileButtonComponent implements OnDestroy {
         return;
     }
   }
-  emitProcessing(processing: boolean) {
+  private emitProcessing(processing: boolean) {
     this.processing.emit(processing);
   }
   ngOnDestroy() {

@@ -20,7 +20,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
   @Output() outConfig = new EventEmitter<NgxFileParserConfig>();
 
   supportedFiles = ['.csv', '.json'];
-  buttonColors: ['', 'primary', 'warn', 'accent'];
+  buttonColors = ['transparent', 'primary', 'warn', 'accent'];
 
   configForm: FormGroup;
   configSub: Subscription;
@@ -34,17 +34,28 @@ export class ConfigComponent implements OnInit, OnDestroy {
         this.config.accepts,
         [Validators.required, Validators.minLength(1)],
       ],
+      buttonColor: [this.config.btnColor as string, [Validators.required]],
+      btnText: [
+        this.config.btnText,
+        [Validators.required, Validators.minLength(1)],
+      ],
     });
     this.onChanges();
   }
   onChanges(): void {
-    this.configSub = this.configForm.valueChanges.subscribe((val) => {
-      this.outConfig.emit({
-        ...this.config,
-        accepts: val.accepts,
-        csvNamedProperties: val.csvNamedProperties,
-      } as NgxFileParserConfig);
-    });
+    if (this.configForm.valid) {
+      this.configSub = this.configForm.valueChanges.subscribe((val) => {
+        const btnColor =
+          val.buttonColor === 'transparent' ? '' : val.buttonColor;
+        this.outConfig.emit({
+          ...this.config,
+          accepts: val.accepts,
+          csvNamedProperties: val.csvNamedProperties,
+          btnColor: btnColor,
+          btnText: val.btnText,
+        } as NgxFileParserConfig);
+      });
+    }
   }
   ngOnDestroy() {
     this.configSub.unsubscribe();
