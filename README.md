@@ -9,7 +9,7 @@ Simple component to parse files with extensions
 
 To be implemented: XML....
 
-See [demo](https://fore.dev)
+See [demo](https://ngx-file-parser.web.app/)
 
 ## Dependencies
 
