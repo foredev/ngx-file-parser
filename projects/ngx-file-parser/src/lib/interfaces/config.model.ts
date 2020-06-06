@@ -14,7 +14,7 @@ export class NgxFileParserConfig {
    */
   btnIcon?: string;
   /**
-   * Style to button Basic | Raised | Stroked | Icon | Flat | Fab | Mini-fab
+   * Style to button white | primary | warn | accent
    * Defaults to raised
    */
   btnColor?: BUTTON_COLORS;

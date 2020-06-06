@@ -1,8 +1,18 @@
 .app {
-  width: 25rem;
+  width: 30rem;
   height: 5rem;
   display: flex;
   justify-content: center;
   margin: 0 auto;
   padding-top: 4rem;
+  flex-direction: column;
+  &__file-button {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  &__results {
+    margin-top: 6rem;
+  }
 }

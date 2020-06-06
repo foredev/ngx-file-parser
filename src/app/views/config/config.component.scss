@@ -1,0 +1,9 @@
+.config {
+  margin-top: 2rem;
+  &__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}

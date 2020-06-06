@@ -33,4 +33,10 @@ export class AppComponent {
       this.parsedFileJson = parsedFileObj.result as INgxJson;
     }
   }
+  resetConfig(config: NgxFileParserConfig) {
+    this.parsedFileComplexCsv = null;
+    this.parsedFileCsv = null;
+    this.parsedFileJson = null;
+    this.ngxFileParserConfig = config;
+  }
 }

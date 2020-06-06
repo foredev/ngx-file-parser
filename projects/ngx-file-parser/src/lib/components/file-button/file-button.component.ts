@@ -5,6 +5,7 @@ import {
   OnDestroy,
   Output,
   EventEmitter,
+  ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -23,6 +24,7 @@ import { ComplexCsvParserService } from '../../parsers/complex-csv-parser.servic
   styleUrls: ['./file-button.component.scss'],
 })
 export class FileButtonComponent implements OnDestroy {
+  @ViewChild('fileInput') fileInputRef;
   private readonly defaultConfig: NgxFileParserConfig = {
     btnIcon: 'backup',
     btnText: 'Choose file',
@@ -57,6 +59,7 @@ export class FileButtonComponent implements OnDestroy {
   private $parsed: Subscription;
 
   @Output() parsedFile = new EventEmitter<INgxResult>();
+  @Output() processing = new EventEmitter<boolean>();
 
   constructor(
     private ngxFileParserService: NgxFileParserService,
@@ -74,13 +77,20 @@ export class FileButtonComponent implements OnDestroy {
 
         this.setParser(extension);
 
-        this.$parsed = this.parser.$parsed
-          .pipe(filter((val) => val !== null))
-          .subscribe((res: SUPPORTED_RETURN_OBJECTS) => {
-            this.parsedFile.emit({ extension, result: res } as INgxResult);
-            this.$parsed.unsubscribe();
-          });
-        this.parser.parse(file);
+        this.emitProcessing(true);
+        try {
+          this.$parsed = this.parser.$parsed
+            .pipe(filter((val) => val !== null))
+            .subscribe((res: SUPPORTED_RETURN_OBJECTS) => {
+              this.parsedFile.emit({ extension, result: res } as INgxResult);
+              this.fileInputRef.nativeElement.value = '';
+              this.emitProcessing(false);
+            });
+          this.parser.parse(file);
+        } catch (error) {
+          this.fileInputRef.nativeElement.value = '';
+          this.emitProcessing(false);
+        }
       }
     }
   }
@@ -97,6 +107,9 @@ export class FileButtonComponent implements OnDestroy {
       default:
         return;
     }
+  }
+  emitProcessing(processing: boolean) {
+    this.processing.emit(processing);
   }
   ngOnDestroy() {
     if (this.$parsed) {

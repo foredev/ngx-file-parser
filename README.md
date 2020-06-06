@@ -2,28 +2,28 @@
 
 [![npm version](http://img.shields.io/npm/v/ngx-file-parser.svg?style=flat)](https://npmjs.org/package/ngx-file-parser)
 
-Simple component to parse
+Simple component to parse files with extensions
 
 - CSV
 - JSON
 
 To be implemented: XML....
 
-See demo - [https://fore.dev](https://fore.dev)
+See [demo](https://fore.dev)
 
 ## Dependencies
 
-- Angular
-- Angular Material
+- [Angular](https://angular.io) >= 9.1.9
+- [Angular Material](https://material.angular.io/) >= 9.2.4
 
 ## Installation
 
 #### 1.
 
-With NPM
+NPM:
 `npm install ngx-file-parser --save`
 
-With Yarn
+Yarn:
 `yarn add ngx-file-parser`
 
 #### 2.
@@ -67,6 +67,7 @@ ngxFileParserConfig: NgxFileParserConfig = {
   btnIcon: "backup",
   btnColor: "primary",
   accepts: [".csv"],
+  csvNamedProperties: true,
 };
 ```
 
@@ -81,18 +82,23 @@ Use the ngx-file-btn directive and provide the needed config object and event li
 
 All parsed object is returned as INgxResult with the extension and result object and is emitted to this event listener with the \$event containing the parsed object
 
-```html
-(parsedFile)="handleParsedFile($event)"
-```
+#### `ngx-file-btn` has the following output events
+
+| Event      | Description                    | Type       |
+| ---------- | ------------------------------ | ---------- |
+| parsedFile | The result of the parsed file. | INgxResult |
+| processing | If the file is being processed | boolean    |
 
 ```ts
 export interface INgxResult {
   extension: string;
-  result: INgxCsv | INgxJson;
+  result: INgxCsv | INgxJson | INgxComplexCsv;
 }
 ```
 
-# CSV
+# Returns
+
+## CSV
 
 Returns the interface `INgxCsv` with properties
 | Property | Description |
@@ -108,7 +114,7 @@ Handle the callback:
   }
 ```
 
-# CSV Named Properties
+## CSV Named Properties
 
 Returns the interface `INgxComplexCsv` with properties
 | Property | Description |
@@ -123,7 +129,7 @@ Handle the callback:
   }
 ```
 
-# JSON
+## JSON
 
 Returns the interface `INgxJson` with the properties that are definied in the upload JSON file
 

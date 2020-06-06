@@ -1,6 +1,6 @@
 {
   "name": "ngx-file-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple Angular component to parse CSV, JSON files",
   "author": "https://fore.dev | Rasmus Brants",
   "repository": {
@@ -22,7 +22,8 @@
     "parser",
     "file",
     "file-parser",
-    "simple"
+    "simple",
+    "config"
   ],
   "license": "MIT",
   "peerDependencies": {
@@ -31,6 +32,9 @@
     "@angular/material": "^9.2.4"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "@angular/common": "^9.1.9",
+    "@angular/core": "^9.1.9",
+    "@angular/material": "^9.2.4"
   }
 }
