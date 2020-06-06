@@ -45,7 +45,10 @@ export class FileButtonComponent implements OnDestroy {
         ...this.CONFIG,
         btnIcon: val.btnIcon ? val.btnIcon : this.defaultConfig.btnIcon,
         btnText: val.btnText ? val.btnText : this.defaultConfig.btnText,
-        accepts: val.accepts ? val.accepts : this.defaultConfig.accepts,
+        accepts:
+          val.accepts && val.accepts.length > 0
+            ? val.accepts
+            : this.defaultConfig.accepts,
         btnColor: val.btnColor ? val.btnColor : this.defaultConfig.btnColor,
         csvNamedProperties: val.csvNamedProperties
           ? val.csvNamedProperties

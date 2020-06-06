@@ -14,8 +14,7 @@ export class ComplexCsvParserService implements NgxParser<INgxComplexCsv[]> {
   constructor() {}
   parse(file: File): void {
     const reader = new FileReader();
-
-    reader.readAsText(file, 'UTF-8');
+    reader.readAsText(file, 'utf-8');
 
     reader.onload = () => {
       const csvData = reader.result;
