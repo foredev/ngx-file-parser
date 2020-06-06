@@ -3,5 +3,6 @@
   "dest": "../../dist/ngx-file-parser",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["tslib", "angular"]
 }

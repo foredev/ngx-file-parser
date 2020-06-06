@@ -32,9 +32,6 @@
     "@angular/material": "^9.2.4"
   },
   "dependencies": {
-    "tslib": "^1.10.0",
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9",
-    "@angular/material": "^9.2.4"
+    "tslib": "^1.10.0"
   }
 }
